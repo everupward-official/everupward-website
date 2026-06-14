@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ever Upward | Premium Career Guidance for Freshers</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            offwhite: '#FAF9F6', 
+                            charcoal: '#1A1D20', 
+                            indigo: '#312E81', 
+                            indigoLight: '#4338CA',
+                            bronze: '#9A7B56', 
+                            bronzeDark: '#7A5E3D',
+                            cardBg: '#FFFFFF',
+                            slateAccent: '#F3F4F6'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'Georgia', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        'bounce-slow': 'bounce 3s infinite',
+                        'pulse-fast': 'pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        .premium-shadow {
+            box-shadow: 0 10px 30px -10px rgba(49, 46, 129, 0.05), 0 1px 3px rgba(154, 123, 86, 0.1);
+        }
+        .premium-shadow-hover:hover {
+            box-shadow: 0 20px 40px -15px rgba(49, 46, 129, 0.12), 0 1px 5px rgba(154, 123, 86, 0.2);
+            transform: translateY(-4px);
+        }
+        .quiz-option-hover:hover {
+            border-color: #4338CA;
+            background-color: #F8FAFC;
+            transform: scale(1.01);
+        }
+        .quiz-option-selected {
+            border-color: #312E81;
+            background-color: #EEF2FF;
+            box-shadow: 0 0 0 2px rgba(49, 46, 129, 0.2);
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        #quiz-modal {
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+        #quiz-card {
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease;
+        }
+    </style>
+</head>
+<body class="bg-brand-offwhite text-brand-charcoal font-sans antialiased overflow-x-hidden">
+
+    <!-- Premium Navigation -->
+    <header class="fixed top-0 left-0 w-full z-40 transition-all duration-300 bg-brand-offwhite/95 backdrop-blur-md border-b border-brand-bronze/10" id="main-header">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center space-x-3 group">
+                <div class="w-10 h-10 rounded-lg bg-brand-indigo flex items-center justify-center premium-shadow transform group-hover:rotate-6 transition-transform duration-300 relative overflow-hidden">
+                    <svg class="w-7 h-7 text-brand-offwhite relative z-10" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2.5L2.5 12L5.33 14.83L12 8.16L18.67 14.83L21.5 12L12 2.5Z" fill="currentColor"/>
+                        <path d="M12 10.5L5.33 17.17L8.16 20L12 16.16L15.84 20L18.67 17.17L12 10.5Z" fill="#9A7B56"/>
+                    </svg>
+                    <div class="absolute inset-0 border-2 border-brand-bronze/20 rounded-lg"></div>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-serif text-xl font-bold tracking-tight text-brand-indigo uppercase">Ever Upward</span>
+                    <span class="text-[9px] tracking-[0.2em] uppercase font-semibold text-brand-bronze -mt-1">Career | Place | Develop</span>
+                </div>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden md:flex items-center space-x-8">
+                <a href="#about" class="text-sm font-medium hover:text-brand-bronze transition-colors duration-200">About Us</a>
+                <a href="#curriculum" class="text-sm font-medium hover:text-brand-bronze transition-colors duration-200">Curriculum</a>
+                <a href="#contact" class="text-sm font-medium hover:text-brand-bronze transition-colors duration-200">Contact Us</a>
+                <a href="#enroll" class="inline-flex items-center justify-center px-5 py-2.5 rounded-lg bg-brand-indigo hover:bg-brand-indigoLight text-white text-sm font-semibold tracking-wide shadow-sm hover:shadow-lg transition-all duration-300">
+                    Apply Now
+                </a>
+            </nav>
+
+            <!-- Mobile Menu Toggle Button -->
+            <button id="menu-btn" class="md:hidden p-2 rounded-lg text-brand-indigo hover:bg-brand-slateAccent focus:outline-none" aria-label="Toggle Menu">
+                <svg id="menu-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Dropdown Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-brand-offwhite border-t border-brand-bronze/10 px-6 py-6 transition-all duration-300 absolute w-full left-0 shadow-lg">
+            <div class="flex flex-col space-y-4">
+                <a href="#about" class="text-base font-medium hover:text-brand-bronze transition-colors py-2" onclick="toggleMenu()">About Us</a>
+                <a href="#curriculum" class="text-base font-medium hover:text-brand-bronze transition-colors py-2" onclick="toggleMenu()">Curriculum</a>
+                <a href="#contact" class="text-base font-medium hover:text-brand-bronze transition-colors py-2" onclick="toggleMenu()">Contact Us</a>
+                <a href="#enroll" class="inline-flex items-center justify-center px-5 py-3 rounded-lg bg-brand-indigo hover:bg-brand-indigoLight text-white font-semibold text-center tracking-wide shadow-md" onclick="toggleMenu()">
+                    Apply Now
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-24 md:pt-44 md:pb-36 flex items-center overflow-hidden">
+        <div class="absolute inset-0 z-0 pointer-events-none opacity-40">
+            <div class="absolute -top-[20%] -right-[10%] w-[600px] h-[600px] rounded-full bg-brand-bronze/5 blur-3xl"></div>
+            <div class="absolute -bottom-[20%] -left-[10%] w-[600px] h-[600px] rounded-full bg-brand-indigo/5 blur-3xl"></div>
+            <div class="absolute top-[30%] right-[15%] w-12 h-12 border border-brand-bronze/20 rounded-full animate-pulse"></div>
+            <div class="absolute bottom-[25%] left-[20%] w-8 h-8 border border-brand-indigo/20 rounded-full animate-bounce duration-[4000ms]"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 relative z-10 w-full">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left Content -->
+                <div class="lg:col-span-7 space-y-8 text-center lg:text-left">
+                    <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-brand-indigo/5 border border-brand-indigo/10 text-brand-indigo text-xs font-semibold tracking-wider uppercase mx-auto lg:mx-0">
+                        <span class="w-1.5 h-1.5 rounded-full bg-brand-bronze animate-ping"></span>
+                        <span>Designed Exclusively for Freshers & Job Seekers</span>
+                    </div>
+
+                    <h1 class="font-serif text-4xl sm:text-5xl md:text-6xl text-brand-charcoal font-bold leading-[1.15] tracking-tight">
+                        Your Professional Journey Begins <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-indigo via-brand-indigoLight to-brand-bronze italic">Ever Upward</span>
+                    </h1>
+
+                    <p class="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto lg:mx-0 font-light leading-relaxed">
+                        Choose right. Prepare smart. Get hired. Transition from confusion to career success with personalized, step-by-step guidance.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
+                        <a href="#enroll" class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 rounded-xl bg-brand-indigo hover:bg-brand-indigoLight text-brand-offwhite font-semibold tracking-wider premium-shadow-hover transform hover:-translate-y-0.5 transition-all duration-300">
+                            Apply for Coaching
+                        </a>
+                        <button onclick="openQuiz()" class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 rounded-xl bg-white hover:bg-brand-slateAccent text-brand-indigo font-semibold tracking-wider border border-brand-indigo/30 hover:border-brand-indigo transition-all duration-300 group">
+                            <span class="mr-2">Take Career Quiz</span>
+                            <span class="group-hover:animate-bounce">🎯</span>
+                        </button>
+                    </div>
+
+                    <div class="pt-8 border-t border-brand-bronze/10 grid grid-cols-3 gap-4 max-w-md mx-auto lg:mx-0">
+                        <div>
+                            <p class="font-serif text-2xl font-bold text-brand-indigo">100%</p>
+                            <p class="text-[11px] uppercase tracking-wider text-gray-500 font-semibold mt-1">Freshman Focused</p>
+                        </div>
+                        <div class="border-x border-brand-bronze/20">
+                            <p class="font-serif text-2xl font-bold text-brand-indigo">1:1</p>
+                            <p class="text-[11px] uppercase tracking-wider text-gray-500 font-semibold mt-1">Private Mentor</p>
+                        </div>
+                        <div>
+                            <p class="font-serif text-2xl font-bold text-brand-indigo">Fully</p>
+                            <p class="text-[11px] uppercase tracking-wider text-gray-500 font-semibold mt-1">Corporate Ready</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Visual Element -->
+                <div class="lg:col-span-5 relative mt-8 lg:mt-0">
+                    <div class="relative w-full max-w-md mx-auto aspect-square cursor-pointer" onclick="openQuiz()">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-brand-indigo/10 to-brand-bronze/10 rounded-3xl transform rotate-3 premium-shadow transition-transform duration-500 hover:rotate-6"></div>
+                        <div class="absolute inset-0 bg-white border border-brand-bronze/15 rounded-3xl transform -rotate-3 transition-transform hover:rotate-0 duration-500 flex flex-col p-8 premium-shadow relative overflow-hidden group">
+                            
+                            <div class="absolute inset-0 bg-brand-indigo/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-20 backdrop-blur-[2px]">
+                                <span class="bg-brand-indigo text-white px-6 py-3 rounded-full font-bold shadow-xl animate-bounce-slow">
+                                    Start Quiz 🚀
+                                </span>
+                            </div>
+
+                            <div class="flex justify-between items-center relative z-10 shrink-0">
+                                <div class="flex space-x-1">
+                                    <div class="w-3 h-3 rounded-full bg-red-400/80"></div>
+                                    <div class="w-3 h-3 rounded-full bg-yellow-400/80"></div>
+                                    <div class="w-3 h-3 rounded-full bg-green-400/80"></div>
+                                </div>
+                                <span class="text-xs font-semibold tracking-wider text-brand-bronze uppercase">Interactive Tool</span>
+                            </div>
+
+                            <div class="flex-1 flex flex-col items-center justify-center text-center relative z-10 w-full py-6">
+                                <div class="text-[5rem] leading-none mb-4 transform transition-transform group-hover:scale-110 duration-300 drop-shadow-xl filter">🔮</div>
+                                <h3 class="font-serif text-3xl font-bold text-brand-indigo mb-2 tracking-tight">Are you Launch-Ready?</h3>
+                                <p class="text-base text-gray-500 font-medium">Find your career blind spots in 60 seconds.</p>
+                            </div>
+
+                            <div class="relative z-10 shrink-0 bg-brand-offwhite rounded-xl p-4 border border-brand-bronze/10 flex items-center justify-between opacity-90 group-hover:opacity-100 transition-opacity mt-auto">
+                                <div class="flex items-center space-x-3 text-left">
+                                    <div class="w-8 h-8 rounded-full bg-brand-indigo/10 flex items-center justify-center text-brand-indigo shrink-0">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-bold text-brand-charcoal leading-tight">Quick Diagnostic</p>
+                                        <p class="text-[11px] text-gray-500 font-medium mt-0.5">8 Questions • 2 Mins</p>
+                                    </div>
+                                </div>
+                                <div class="flex space-x-1">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-brand-indigo/20 animate-pulse"></div>
+                                    <div class="w-1.5 h-1.5 rounded-full bg-brand-indigo/40 animate-pulse delay-75"></div>
+                                    <div class="w-1.5 h-1.5 rounded-full bg-brand-indigo animate-pulse delay-150"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Discover Yourself Visual Assessment Section (Recreated from Poster) -->
+    <section id="visual-assessment" class="py-20 bg-[#F4F9F6] border-y border-brand-bronze/10 relative">
+        <div class="max-w-7xl mx-auto px-6">
+            
+            <!-- Book-Style Header -->
+            <div class="mb-14 text-center">
+                <h2 class="font-serif text-4xl md:text-5xl font-bold text-brand-charcoal uppercase tracking-wide mb-3">
+                    Discover <span class="text-[#1D8454]">Yourself</span>
+                </h2>
+                <p class="text-base md:text-lg text-gray-600 font-medium">Find Your Personality. Shape Your Future.</p>
+                <div class="w-24 h-1 bg-[#1D8454] mx-auto mt-6 rounded-full opacity-50"></div>
+            </div>
+
+            <!-- Quiz Grid Recreated in CSS -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+                
+                <!-- Card 1: How do you think? -->
+                <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden flex flex-col hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                    <div class="bg-[#1D8454] text-white text-center py-2.5 font-bold text-xs tracking-widest uppercase">
+                        How Do You Think?
+                    </div>
+                    <div class="flex flex-1 p-4">
+                        <div class="flex-1 flex flex-col items-center justify-between text-center gap-4">
+                            <span class="text-[9px] font-bold text-white uppercase px-1 py-1.5 bg-[#1D8454] rounded w-full truncate shadow-sm">Quick Thinker</span>
+                            <div class="text-5xl drop-shadow-md transition-transform hover:scale-110">⚡</div>
+                            <div class="w-10 h-10 rounded-full bg-[#1D8454] text-white font-bold text-lg flex items-center justify-center shadow-inner">0</div>
+                        </div>
+                        <div class="flex-1 flex flex-col items-center justify-between text-center gap-4 border-x border-gray-100 px-2 mx-2">
+                            <span class="text-[9px] font-bold text-white uppercase px-1 py-1.5 bg-[#D3362A] rounded w-full truncate shadow-sm">Creative</span>
+                            <div class="text-5xl drop-shadow-md transition-transform hover:scale-110">💡</div>
+                            <div class="w-10 h-10 rounded-full bg-[#D3362A] text-white font-bold text-lg flex items-center justify-center shadow-inner">10</div>
+                        </div>
+                        <div class="flex-1 flex flex-col items-center justify-between text-center gap-4">
+                            <span class="text-[9px] font-bold text-white uppercase px-1 py-1.5 bg-[#207096] rounded w-full truncate shadow-sm">Logical</span>
+                            <div class="text-5xl drop-shadow-md transition-transform hover:scale-110">⚙️</div>
+                            <div class="w-10 h-10 rounded-full bg-[#207096] text-white font-bold text-lg flex items-center justify-center shadow-inner">20</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2: Which one are you? -->
+                <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden flex flex-col hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                    <div class="bg-[#1D8454] text-white text-center py-2.5 font-bold text-xs tracking-widest uppercase">
+                        Which One Are You?
+                    </div>
+                    <div class="flex flex-1 p-4">
+                        <div class="flex-1 flex flex-col items-center justify-between text-center gap-4">
+                            <span class="text-[9px] font-bold text-white uppercase px-1 py-1.5 bg-[#1D8454] rounded w-full truncate shadow-sm">Extrovert</span>
+                            <div class="text-5xl drop-shadow-md transition-transform hover:scale-110">🗣️</div>
+                            <div class="w-10 h-10 rounded-full bg-[#1D8454] text-white font-bold text-lg flex items-center justify-center shadow-inner">0</div>
+                        </div>
+                        <div class="flex-1 flex flex-col items-center justify-between text-center gap-4 border-x border-gray-100 px-2 mx-2">
+                            <span class="text-[9px] font-bold text-white uppercase px-1 py-1.5 bg-[#D3362A] rounded w-full truncate shadow-sm">Introvert</span>
+                            <div class="text-5xl drop-shadow-md transition-transform hover:scale-110">🤫</div>
+                            <div class="w-10 h-10 rounded-full bg-[#D3362A] text-white font-bold text-lg flex items-center justify-center shadow-inner">10</div>
+                        </div>
+                        <div class="flex-1 flex flex-col items-center justify-between text-center gap-4">
+                            <span class="text-[9px] font-bold text-white uppercase px-1 py-1.5 bg-[#207096] rounded w-full truncate shadow-sm">Mixed</span>
+                            <div class="text-5xl drop-shadow-md transition-transform hover:scale-110">🔀</div>
+                            <div class="w-10 h-10 rounded-full bg-[#207096] text-white font-bold text-lg flex items-center justify-center shadow-inner">20</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3: Which problem to solve? -->
+                <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden flex flex-col hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                    <div class="bg-[#1D8454] text-white text-center py-2.5 font-bold text-xs tracking-widest uppercase">
+                        Problem To Solve First?
+                    </div>
+                    <div class="flex flex-1 p-4">
+                        <div class="flex-1 flex flex-col items-center justify-between text-center gap-4">
+                            <span class="text-[9px] font-bold text-white uppercase px-1 py-1.5 bg-[#1D8454] rounded w-full truncate shadow-sm">Economy</span>
+                            <div class="text-5xl drop-shadow-md transition-transform hover:scale-110">📈</div>
+                            <div class="w-10 h-10 rounded-full bg-[#1D8454] text-white font-bold text-lg flex items-center justify-center shadow-inner">0</div>
+                        </div>
+                        <div class="flex-1 flex flex-col items-center justify-between text-center gap-4 border-x border-gray-100 px-2 mx-2">
+                            <span class="text-[9px] font-bold text-white uppercase px-1 py-1.5 bg-[#D3362A] rounded w-full truncate shadow-sm">Health</span>
+                            <div class="text-5xl drop-shadow-md transition-transform hover:scale-110">🏥</div>
+                            <div class="w-10 h-10 rounded-full bg-[#D3362A] text-white font-bold text-lg flex items-center justify-center shadow-inner">10</div>
+                        </div>
+                        <div class="flex-1 flex flex-col items-center justify-between text-center gap-4">
+                            <span class="text-[9px] font-bold text-white uppercase px-1 py-1.5 bg-[#207096] rounded w-full truncate shadow-sm">Education</span>
+                            <div class="text-5xl drop-shadow-md transition-transform hover:scale-110">📚</div>
+                            <div class="w-10 h-10 rounded-full bg-[#207096] text-white font-bold text-lg flex items-center justify-center shadow-inner">20</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4: Which activities? -->
+                <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden flex flex-col hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                    <div class="bg-[#1D8454] text-white text-center py-2.5 font-bold text-xs tracking-widest uppercase">
+                        Activities You Enjoy?
+                    </div>
+                    <div class="flex flex-1 p-4">
+                        <div class="flex-1 flex flex-col items-center justify-between text-center gap-4">
+                            <span class="text-[9px] font-bold text-white uppercase px-1 py-1.5 bg-[#1D8454] rounded w-full truncate shadow-sm">Exercise</span>
+                            <div class="text-5xl drop-shadow-md transition-transform hover:scale-110">🏋️</div>
+                            <div class="w-10 h-10 rounded-full bg-[#1D8454] text-white font-bold text-lg flex items-center justify-center shadow-inner">0</div>
+                        </div>
+                        <div class="flex-1 flex flex-col items-center justify-between text-center gap-4 border-x border-gray-100 px-2 mx-2">
+                            <span class="text-[9px] font-bold text-white uppercase px-1 py-1.5 bg-[#D3362A] rounded w-full truncate shadow-sm">Movies</span>
+                            <div class="text-5xl drop-shadow-md transition-transform hover:scale-110">🎬</div>
+                            <div class="w-10 h-10 rounded-full bg-[#D3362A] text-white font-bold text-lg flex items-center justify-center shadow-inner">10</div>
+                        </div>
+                        <div class="flex-1 flex flex-col items-center justify-between text-center gap-4">
+                            <span class="text-[9px] font-bold text-white uppercase px-1 py-1.5 bg-[#207096] rounded w-full truncate shadow-sm">Reading</span>
+                            <div class="text-5xl drop-shadow-md transition-transform hover:scale-110">📖</div>
+                            <div class="w-10 h-10 rounded-full bg-[#207096] text-white font-bold text-lg flex items-center justify-center shadow-inner">20</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 5: Pick One -->
+                <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden flex flex-col hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                    <div class="bg-[#1D8454] text-white text-center py-2.5 font-bold text-xs tracking-widest uppercase">
+                        Pick One
+                    </div>
+                    <div class="flex flex-1 p-4">
+                        <div class="flex-1 flex flex-col items-center justify-between text-center gap-4">
+                            <span class="text-[9px] font-bold text-white uppercase px-1 py-1.5 bg-[#1D8454] rounded w-full truncate shadow-sm">Art</span>
+                            <div class="text-5xl drop-shadow-md transition-transform hover:scale-110">🎨</div>
+                            <div class="w-10 h-10 rounded-full bg-[#1D8454] text-white font-bold text-lg flex items-center justify-center shadow-inner">0</div>
+                        </div>
+                        <div class="flex-1 flex flex-col items-center justify-between text-center gap-4 border-x border-gray-100 px-2 mx-2">
+                            <span class="text-[9px] font-bold text-white uppercase px-1 py-1.5 bg-[#D3362A] rounded w-full truncate shadow-sm">Science</span>
+                            <div class="text-5xl drop-shadow-md transition-transform hover:scale-110">⚛️</div>
+                            <div class="w-10 h-10 rounded-full bg-[#D3362A] text-white font-bold text-lg flex items-center justify-center shadow-inner">10</div>
+                        </div>
+                        <div class="flex-1 flex flex-col items-center justify-between text-center gap-4">
+                            <span class="text-[9px] font-bold text-white uppercase px-1 py-1.5 bg-[#207096] rounded w-full truncate shadow-sm">History</span>
+                            <div class="text-5xl drop-shadow-md transition-transform hover:scale-110">⏳</div>
+                            <div class="w-10 h-10 rounded-full bg-[#207096] text-white font-bold text-lg flex items-center justify-center shadow-inner">20</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 6: How would you work? -->
+                <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden flex flex-col hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                    <div class="bg-[#1D8454] text-white text-center py-2.5 font-bold text-xs tracking-widest uppercase">
+                        How Would You Work?
+                    </div>
+                    <div class="flex flex-1 p-4">
+                        <div class="flex-1 flex flex-col items-center justify-between text-center gap-4">
+                            <span class="text-[9px] font-bold text-white uppercase px-1 py-1.5 bg-[#1D8454] rounded w-full truncate shadow-sm">Work Hard</span>
+                            <div class="text-5xl drop-shadow-md transition-transform hover:scale-110">🏗️</div>
+                            <div class="w-10 h-10 rounded-full bg-[#1D8454] text-white font-bold text-lg flex items-center justify-center shadow-inner">0</div>
+                        </div>
+                        <div class="flex-1 flex flex-col items-center justify-between text-center gap-4 border-x border-gray-100 px-2 mx-2">
+                            <span class="text-[9px] font-bold text-white uppercase px-1 py-1.5 bg-[#D3362A] rounded w-full truncate shadow-sm">Work Fast</span>
+                            <div class="text-5xl drop-shadow-md transition-transform hover:scale-110">🏃</div>
+                            <div class="w-10 h-10 rounded-full bg-[#D3362A] text-white font-bold text-lg flex items-center justify-center shadow-inner">10</div>
+                        </div>
+                        <div class="flex-1 flex flex-col items-center justify-between text-center gap-4">
+                            <span class="text-[9px] font-bold text-white uppercase px-1 py-1.5 bg-[#207096] rounded w-full truncate shadow-sm">Work Smart</span>
+                            <div class="text-5xl drop-shadow-md transition-transform hover:scale-110">💻</div>
+                            <div class="w-10 h-10 rounded-full bg-[#207096] text-white font-bold text-lg flex items-center justify-center shadow-inner">20</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Footer Badge area from the Poster -->
+            <div class="max-w-4xl mx-auto mt-12 bg-white rounded-2xl shadow-md border border-[#1D8454]/10 p-6 flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="flex items-center gap-4 text-[#1D8454]">
+                    <div class="text-4xl drop-shadow-sm">💡</div>
+                    <div>
+                        <p class="font-bold uppercase tracking-wider text-sm md:text-base">There is no right or wrong answer.</p>
+                        <p class="text-gray-500 font-serif italic text-sm">Just be yourself!</p>
+                    </div>
+                </div>
+                <div class="h-12 w-px bg-gray-200 hidden md:block"></div>
+                <div class="flex items-center gap-4 text-[#1D8454] text-right md:text-left">
+                    <div>
+                        <p class="font-bold uppercase tracking-wider text-sm md:text-base">Your Choices Today,</p>
+                        <p class="text-gray-500 font-serif italic text-sm">Your Career Tomorrow!</p>
+                    </div>
+                    <div class="text-4xl drop-shadow-sm">🎯</div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Full 9-Module Curriculum Section -->
+    <section id="about" class="py-24 bg-white border-y border-brand-bronze/10 scroll-mt-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="max-w-3xl mx-auto text-center space-y-6">
+                <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-brand-bronze/10 text-brand-bronze text-[11px] font-bold tracking-wider uppercase">
+                    OUR PHILOSOPHY & CURRICULUM
+                </div>
+                <h2 class="font-serif text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-brand-charcoal">
+                    Guiding Freshers From Academic Boundaries to Global Workplaces.
+                </h2>
+                <div class="w-24 h-[2px] bg-brand-bronze mx-auto my-4"></div>
+                
+                <p class="text-base md:text-lg text-gray-600 font-light leading-relaxed">
+                    At <strong class="font-medium text-brand-indigo">Ever Upward</strong>, we don't just motivate you; we build systems. Traditional courses focus purely on theory, leaving freshers unprepared for the realities of the competitive recruitment funnel. Our 9-step blueprint takes you from total confusion to career success.
+                </p>
+            </div>
+
+            <!-- Pictorial 9-Module Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-16 max-w-6xl mx-auto">
+                
+                <!-- Module 1 -->
+                <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden flex flex-col hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group">
+                    <div class="bg-brand-indigo text-white text-center py-2.5 font-bold text-sm tracking-widest uppercase shadow-sm">
+                        Module 1
+                    </div>
+                    <div class="flex flex-col flex-1 p-6 items-center text-center gap-4 relative">
+                        <span class="text-[11px] font-bold text-brand-indigo uppercase px-3 py-1.5 bg-brand-indigo/10 rounded-md w-full shadow-sm">Career Awareness & Direction</span>
+                        <div class="text-6xl drop-shadow-lg transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3 my-2">🔭</div>
+                        <p class="text-sm text-gray-600 leading-relaxed font-medium mb-6">Stop guessing. Get a clear overview of IT, Government, Core, and Private sector roles. We break myths regarding salary, stability, and growth realities.</p>
+                        <div class="w-12 h-12 rounded-full bg-brand-indigo text-white font-bold text-xl flex items-center justify-center shadow-inner mt-auto border-4 border-white ring-2 ring-brand-indigo/20">1</div>
+                    </div>
+                </div>
+                
+                <!-- Module 2 -->
+                <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden flex flex-col hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group">
+                    <div class="bg-[#1D8454] text-white text-center py-2.5 font-bold text-sm tracking-widest uppercase shadow-sm">
+                        Module 2
+                    </div>
+                    <div class="flex flex-col flex-1 p-6 items-center text-center gap-4 relative">
+                        <span class="text-[11px] font-bold text-[#1D8454] uppercase px-3 py-1.5 bg-[#1D8454]/10 rounded-md w-full shadow-sm">Self-Discovery & SWOT</span>
+                        <div class="text-6xl drop-shadow-lg transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3 my-2">🧠</div>
+                        <p class="text-sm text-gray-600 leading-relaxed font-medium mb-6">Understand yourself. Conduct a rigorous personal SWOT analysis. Align your natural skills with market demand and assess your true personality fit.</p>
+                        <div class="w-12 h-12 rounded-full bg-[#1D8454] text-white font-bold text-xl flex items-center justify-center shadow-inner mt-auto border-4 border-white ring-2 ring-[#1D8454]/20">2</div>
+                    </div>
+                </div>
+
+                <!-- Module 3 -->
+                <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden flex flex-col hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group">
+                    <div class="bg-[#207096] text-white text-center py-2.5 font-bold text-sm tracking-widest uppercase shadow-sm">
+                        Module 3
+                    </div>
+                    <div class="flex flex-col flex-1 p-6 items-center text-center gap-4 relative">
+                        <span class="text-[11px] font-bold text-[#207096] uppercase px-3 py-1.5 bg-[#207096]/10 rounded-md w-full shadow-sm">Career Path Selection</span>
+                        <div class="text-6xl drop-shadow-lg transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3 my-2">🛤️</div>
+                        <p class="text-sm text-gray-600 leading-relaxed font-medium mb-6">Finalize your direction confidently. Analyze the exact risk vs. reward for your chosen path and establish viable, bulletproof backup plans.</p>
+                        <div class="w-12 h-12 rounded-full bg-[#207096] text-white font-bold text-xl flex items-center justify-center shadow-inner mt-auto border-4 border-white ring-2 ring-[#207096]/20">3</div>
+                    </div>
+                </div>
+
+                <!-- Module 4 -->
+                <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden flex flex-col hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group">
+                    <div class="bg-[#D3362A] text-white text-center py-2.5 font-bold text-sm tracking-widest uppercase shadow-sm">
+                        Module 4
+                    </div>
+                    <div class="flex flex-col flex-1 p-6 items-center text-center gap-4 relative">
+                        <span class="text-[11px] font-bold text-[#D3362A] uppercase px-3 py-1.5 bg-[#D3362A]/10 rounded-md w-full shadow-sm">IT Career Track</span>
+                        <div class="text-6xl drop-shadow-lg transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3 my-2">💻</div>
+                        <p class="text-sm text-gray-600 leading-relaxed font-medium mb-6">Navigate IT domains (Dev, Testing, Cyber). Learn how to choose a programming language (Python/Java) and build a roadmap from beginner to job-ready.</p>
+                        <div class="w-12 h-12 rounded-full bg-[#D3362A] text-white font-bold text-xl flex items-center justify-center shadow-inner mt-auto border-4 border-white ring-2 ring-[#D3362A]/20">4</div>
+                    </div>
+                </div>
+
+                <!-- Module 5 -->
+                <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden flex flex-col hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group">
+                    <div class="bg-brand-bronze text-white text-center py-2.5 font-bold text-sm tracking-widest uppercase shadow-sm">
+                        Module 5
+                    </div>
+                    <div class="flex flex-col flex-1 p-6 items-center text-center gap-4 relative">
+                        <span class="text-[11px] font-bold text-brand-bronze uppercase px-3 py-1.5 bg-brand-bronze/10 rounded-md w-full shadow-sm">Government Exam Strategy</span>
+                        <div class="text-6xl drop-shadow-lg transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3 my-2">🏛️</div>
+                        <p class="text-sm text-gray-600 leading-relaxed font-medium mb-6">Conquer competitive exams (SSC, Banking, UPSC). We provide clear syllabus breakdowns, study strategies, and daily time management routines.</p>
+                        <div class="w-12 h-12 rounded-full bg-brand-bronze text-white font-bold text-xl flex items-center justify-center shadow-inner mt-auto border-4 border-white ring-2 ring-brand-bronze/20">5</div>
+                    </div>
+                </div>
+
+                <!-- Module 6 -->
+                <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden flex flex-col hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group">
+                    <div class="bg-brand-indigo text-white text-center py-2.5 font-bold text-sm tracking-widest uppercase shadow-sm">
+                        Module 6
+                    </div>
+                    <div class="flex flex-col flex-1 p-6 items-center text-center gap-4 relative">
+                        <span class="text-[11px] font-bold text-brand-indigo uppercase px-3 py-1.5 bg-brand-indigo/10 rounded-md w-full shadow-sm">Job Search Strategies</span>
+                        <div class="text-6xl drop-shadow-lg transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3 my-2">🤝</div>
+                        <p class="text-sm text-gray-600 leading-relaxed font-medium mb-6">Learn how to actually find jobs. Master networking basics, utilize powerful referrals, and access the hidden market for internship/fresher opportunities.</p>
+                        <div class="w-12 h-12 rounded-full bg-brand-indigo text-white font-bold text-xl flex items-center justify-center shadow-inner mt-auto border-4 border-white ring-2 ring-brand-indigo/20">6</div>
+                    </div>
+                </div>
+
+                <!-- Module 7 -->
+                <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden flex flex-col hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group">
+                    <div class="bg-[#1D8454] text-white text-center py-2.5 font-bold text-sm tracking-widest uppercase shadow-sm">
+                        Module 7
+                    </div>
+                    <div class="flex flex-col flex-1 p-6 items-center text-center gap-4 relative">
+                        <span class="text-[11px] font-bold text-[#1D8454] uppercase px-3 py-1.5 bg-[#1D8454]/10 rounded-md w-full shadow-sm">Resume Building</span>
+                        <div class="text-6xl drop-shadow-lg transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3 my-2">📄</div>
+                        <p class="text-sm text-gray-600 leading-relaxed font-medium mb-6">Create strong, professional resumes. Avoid common mistakes, understand ATS algorithms, and ensure your data matches perfectly across all job portals.</p>
+                        <div class="w-12 h-12 rounded-full bg-[#1D8454] text-white font-bold text-xl flex items-center justify-center shadow-inner mt-auto border-4 border-white ring-2 ring-[#1D8454]/20">7</div>
+                    </div>
+                </div>
+
+                <!-- Module 8 -->
+                <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden flex flex-col hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group">
+                    <div class="bg-[#207096] text-white text-center py-2.5 font-bold text-sm tracking-widest uppercase shadow-sm">
+                        Module 8
+                    </div>
+                    <div class="flex flex-col flex-1 p-6 items-center text-center gap-4 relative">
+                        <span class="text-[11px] font-bold text-[#207096] uppercase px-3 py-1.5 bg-[#207096]/10 rounded-md w-full shadow-sm">Interview Preparation</span>
+                        <div class="text-6xl drop-shadow-lg transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3 my-2">🎤</div>
+                        <p class="text-sm text-gray-600 leading-relaxed font-medium mb-6">Build unshakeable confidence. Master common questions ("Tell me about yourself"), fix body language, and practice via intensive mock interviews.</p>
+                        <div class="w-12 h-12 rounded-full bg-[#207096] text-white font-bold text-xl flex items-center justify-center shadow-inner mt-auto border-4 border-white ring-2 ring-[#207096]/20">8</div>
+                    </div>
+                </div>
+
+                <!-- Module 9 -->
+                <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden flex flex-col hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group">
+                    <div class="bg-[#D3362A] text-white text-center py-2.5 font-bold text-sm tracking-widest uppercase shadow-sm">
+                        Module 9
+                    </div>
+                    <div class="flex flex-col flex-1 p-6 items-center text-center gap-4 relative">
+                        <span class="text-[11px] font-bold text-[#D3362A] uppercase px-3 py-1.5 bg-[#D3362A]/10 rounded-md w-full shadow-sm">Communication Skills</span>
+                        <div class="text-6xl drop-shadow-lg transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3 my-2">💬</div>
+                        <p class="text-sm text-gray-600 leading-relaxed font-medium mb-6">Improve your speaking abilities. Learn basic spoken English for interviews, structure answers, improve vocabulary, and defeat public speaking fears.</p>
+                        <div class="w-12 h-12 rounded-full bg-[#D3362A] text-white font-bold text-xl flex items-center justify-center shadow-inner mt-auto border-4 border-white ring-2 ring-[#D3362A]/20">9</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Curriculums Section -->
+    <section id="curriculum" class="py-24 bg-brand-offwhite scroll-mt-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center max-w-2xl mx-auto space-y-4 mb-16">
+                <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-brand-indigo/10 text-brand-indigo text-[11px] font-bold tracking-wider uppercase">
+                    OUR PROGRAM DETAILS & PRICING
+                </div>
+                <h2 class="font-serif text-3xl md:text-4xl font-bold tracking-tight text-brand-charcoal">
+                    Accelerated Career Architecture Tiers
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 max-w-5xl mx-auto items-stretch">
+                <!-- Tier 1 -->
+                <div class="bg-white rounded-3xl border border-brand-bronze/15 overflow-hidden flex flex-col justify-between premium-shadow hover:border-brand-indigo/40 transition-all duration-300">
+                    <div class="p-8 sm:p-10">
+                        <div class="flex items-center justify-between mb-6">
+                            <span class="inline-block px-4 py-1.5 rounded-full bg-brand-slateAccent text-brand-indigo text-xs font-bold uppercase tracking-wider">Fast Track</span>
+                            <span class="text-xs font-semibold text-gray-400 bg-gray-100 px-2.5 py-1 rounded-md">1 Week</span>
+                        </div>
+                        <h3 class="font-serif text-2xl sm:text-3xl font-bold text-brand-indigo mb-2">The 1-Week Career Sprint</h3>
+                        <p class="text-sm text-gray-500 font-light mb-8">Fast-paced, daily sessions designed for immediate and essential job placement variables.</p>
+                        
+                        <div class="grid grid-cols-2 gap-2.5 mb-8">
+                            <div class="col-span-2 p-3 bg-brand-offwhite border border-brand-bronze/10 rounded-xl flex items-center justify-between px-6">
+                                <span class="block text-xl font-bold text-brand-indigo font-serif">7</span>
+                                <span class="text-[10px] uppercase text-gray-400 font-semibold tracking-wider">Total Classes</span>
+                            </div>
+                            <div class="col-span-2 grid grid-cols-3 gap-2">
+                                <div class="p-2 bg-brand-offwhite border border-brand-bronze/10 rounded-xl text-center">
+                                    <span class="block text-sm font-bold text-brand-indigo">3</span>
+                                    <span class="text-[9px] uppercase text-gray-400 font-semibold">Theory</span>
+                                </div>
+                                <div class="p-2 bg-brand-offwhite border border-brand-bronze/10 rounded-xl text-center">
+                                    <span class="block text-sm font-bold text-brand-indigo">2 <span class="text-[9px] font-normal">(1h)</span></span>
+                                    <span class="text-[9px] uppercase text-gray-400 font-semibold">Practical</span>
+                                </div>
+                                <div class="p-2 bg-brand-offwhite border border-brand-bronze/10 rounded-xl text-center">
+                                    <span class="block text-sm font-bold text-brand-indigo">2 <span class="text-[9px] font-normal">(30m)</span></span>
+                                    <span class="text-[9px] uppercase text-gray-400 font-semibold">Live/Doubts</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-8 sm:p-10 bg-brand-offwhite border-t border-brand-bronze/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <div>
+                            <span class="text-xs uppercase tracking-widest text-gray-400 font-bold block">FEE INVESTMENT</span>
+                            <div class="flex items-center space-x-2 mt-0.5">
+                                <span class="text-lg font-serif text-gray-400 line-through">₹4,999</span>
+                                <span class="text-2xl font-serif font-bold text-[#1D8454]">FREE</span>
+                            </div>
+                            <span class="text-[10px] text-[#1D8454] font-semibold mt-1 block">* For first 10 enrollments</span>
+                        </div>
+                        <a href="#enroll" class="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 rounded-xl bg-brand-indigo hover:bg-brand-indigoLight text-brand-offwhite text-sm font-bold tracking-wide transition-colors">
+                            Apply for Sprint
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Tier 2 -->
+                <div class="bg-white rounded-3xl border-2 border-brand-bronze overflow-hidden flex flex-col justify-between premium-shadow relative">
+                    <div class="absolute top-0 right-0 bg-brand-bronze text-brand-offwhite text-[10px] font-bold uppercase tracking-widest px-4 py-1.5 rounded-bl-xl shadow-sm">
+                        Recommended
+                    </div>
+                    <div class="p-8 sm:p-10">
+                        <div class="flex items-center justify-between mb-6">
+                            <span class="inline-block px-4 py-1.5 rounded-full bg-brand-indigo/10 text-brand-indigo text-xs font-bold uppercase tracking-wider">Mastery Pathway</span>
+                            <span class="text-xs font-semibold text-brand-bronze bg-brand-bronze/10 px-2.5 py-1 rounded-md">2 Weeks</span>
+                        </div>
+                        <h3 class="font-serif text-2xl sm:text-3xl font-bold text-brand-indigo mb-2">The Complete Career Blueprint</h3>
+                        <p class="text-sm text-gray-500 font-light mb-8">Elite, deep-dive tactical curriculum designed to thoroughly prepare freshers for high-value competitive recruitment.</p>
+                        
+                        <div class="grid grid-cols-2 gap-2.5 mb-8">
+                            <div class="col-span-2 p-3 bg-brand-offwhite border border-brand-bronze/20 rounded-xl flex items-center justify-between px-6">
+                                <span class="block text-xl font-bold text-brand-indigo font-serif">15</span>
+                                <span class="text-[10px] uppercase text-gray-400 font-semibold tracking-wider">Total Classes</span>
+                            </div>
+                            <div class="col-span-2 grid grid-cols-3 gap-2">
+                                <div class="p-2 bg-brand-offwhite border border-brand-bronze/20 rounded-xl text-center">
+                                    <span class="block text-sm font-bold text-brand-indigo">5</span>
+                                    <span class="text-[9px] uppercase text-gray-400 font-semibold">Theory</span>
+                                </div>
+                                <div class="p-2 bg-brand-offwhite border border-brand-bronze/20 rounded-xl text-center">
+                                    <span class="block text-sm font-bold text-brand-indigo">5 <span class="text-[9px] font-normal">(1h)</span></span>
+                                    <span class="text-[9px] uppercase text-gray-400 font-semibold">Practical</span>
+                                </div>
+                                <div class="p-2 bg-brand-offwhite border border-brand-bronze/20 rounded-xl text-center">
+                                    <span class="block text-sm font-bold text-brand-indigo">5 <span class="text-[9px] font-normal">(30m)</span></span>
+                                    <span class="text-[9px] uppercase text-gray-400 font-semibold">Live/Doubts</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-8 sm:p-10 bg-brand-offwhite border-t border-brand-bronze/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <div>
+                            <span class="text-xs uppercase tracking-widest text-brand-bronze font-bold block">FEE INVESTMENT</span>
+                            <div class="flex items-center space-x-2 mt-0.5">
+                                <span class="text-lg font-serif text-gray-400 line-through">₹7,999</span>
+                                <span class="text-2xl font-serif font-bold text-[#1D8454]">FREE</span>
+                            </div>
+                            <span class="text-[10px] text-[#1D8454] font-semibold mt-1 block">* For first 10 enrollments</span>
+                        </div>
+                        <a href="#enroll" class="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 rounded-xl bg-brand-indigo hover:bg-brand-indigoLight text-brand-offwhite text-sm font-bold tracking-wide transition-all duration-300 transform hover:scale-105">
+                            Enroll in Blueprint
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Google Form Integration Section -->
+    <section id="enroll" class="py-24 bg-white border-t border-brand-bronze/10 scroll-mt-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-5 space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-brand-bronze/10 text-brand-bronze text-[11px] font-bold tracking-wider uppercase">
+                        APPLICATION DESK
+                    </div>
+                    <h2 class="font-serif text-3xl md:text-4xl font-bold tracking-tight text-brand-charcoal">
+                        Take the First Step Ever Upward
+                    </h2>
+                    <p class="text-base text-gray-600 font-light leading-relaxed">
+                        To maintain a premium standard of personalized coaching, we only admit freshers who demonstrate high intent and an adaptive learning mindset.
+                    </p>
+                </div>
+
+                <div class="lg:col-span-7 flex justify-center">
+                    <div class="w-full max-w-2xl bg-brand-offwhite border border-brand-bronze/15 rounded-3xl overflow-hidden premium-shadow p-2 md:p-4">
+                        <div class="bg-white rounded-2xl overflow-hidden relative" style="height: 620px;">
+                            <div class="absolute top-0 left-0 w-full h-12 bg-brand-indigo flex items-center justify-between px-6 z-10">
+                                <div class="flex items-center space-x-2">
+                                    <div class="w-2.5 h-2.5 rounded-full bg-brand-offwhite/30"></div>
+                                    <span class="text-[10px] text-brand-offwhite/80 font-bold uppercase tracking-wider">Ever Upward Application Portal</span>
+                                </div>
+                                <span class="text-[10px] text-brand-offwhite/60">Secure SSL Connection</span>
+                            </div>
+                            <div class="w-full h-full pt-12">
+                                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSevk5ve9FjwSndMLAk0AxH8QVnFEYo_PucGqYHLEdTJ-qSg_w/viewform?embedded=true" class="w-full h-full border-0" allowfullscreen loading="lazy">Loading…</iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-brand-charcoal text-white pt-20 pb-10 border-t-2 border-brand-bronze/40">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12 pb-16 border-b border-white/10">
+                <div class="md:col-span-5 space-y-6">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-lg bg-brand-indigo flex items-center justify-center relative overflow-hidden premium-shadow">
+                            <!-- Duplicate New Icon -->
+                            <svg class="w-7 h-7 text-white relative z-10" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2.5L2.5 12L5.33 14.83L12 8.16L18.67 14.83L21.5 12L12 2.5Z" fill="currentColor"/>
+                                <path d="M12 10.5L5.33 17.17L8.16 20L12 16.16L15.84 20L18.67 17.17L12 10.5Z" fill="#9A7B56"/>
+                            </svg>
+                            <div class="absolute inset-0 border-2 border-brand-bronze/20 rounded-lg"></div>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="font-serif text-xl font-bold tracking-tight text-white uppercase">Ever Upward</span>
+                            <span class="text-[9px] tracking-[0.2em] uppercase font-semibold text-brand-bronze -mt-1">Career | Place | Develop</span>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-400 font-light leading-relaxed max-w-sm">Building structural stepping stones for freshers. Transitioning your qualifications into real corporate value.</p>
+                </div>
+                <div class="md:col-span-7 flex flex-col sm:flex-row gap-8">
+                    <div class="space-y-4">
+                        <h4 class="text-xs font-bold uppercase tracking-widest text-brand-bronze">Contact Information</h4>
+                        <ul class="space-y-3">
+                            <li class="flex items-center space-x-3 text-sm text-gray-300">
+                                <a href="mailto:support@everupward.co.in" class="hover:text-brand-bronze transition-colors font-light">support@everupward.co.in</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-500 font-light">
+                <p>&copy; 2026 Ever Upward Academy. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Quiz Trigger Widget -->
+    <div id="quiz-widget" class="fixed bottom-6 right-6 z-40 transform translate-y-24 opacity-0 transition-all duration-700 ease-out cursor-pointer group" onclick="openQuiz()">
+        <div class="relative">
+            <!-- Notification Badge -->
+            <div class="absolute -top-2 -right-2 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center text-[10px] text-white font-bold animate-pulse border-2 border-white z-10 shadow-sm">1</div>
+            
+            <div class="bg-white rounded-2xl shadow-2xl border border-brand-bronze/20 p-4 flex items-center space-x-4 premium-shadow-hover">
+                <div class="w-12 h-12 bg-indigo-50 rounded-full flex items-center justify-center text-2xl group-hover:scale-110 transition-transform duration-300">
+                    🚀
+                </div>
+                <div class="pr-2">
+                    <p class="text-[10px] uppercase tracking-wider text-brand-bronze font-bold mb-0.5">Quick Check</p>
+                    <p class="text-sm font-bold text-brand-charcoal">Are you Launch-Ready?</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Career Clarity Quiz Fullscreen Modal -->
+    <div id="quiz-modal" class="fixed inset-0 z-[100] flex items-center justify-center invisible opacity-0 bg-brand-charcoal/40 backdrop-blur-sm p-4 sm:p-6">
+        
+        <!-- Modal Card -->
+        <div id="quiz-card" class="bg-white w-full max-w-2xl rounded-[2rem] shadow-2xl flex flex-col overflow-hidden transform scale-95 opacity-0 relative border border-brand-bronze/20">
+            
+            <!-- Close button -->
+            <button onclick="closeQuiz()" class="absolute top-5 right-5 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200 hover:text-gray-800 transition-colors z-20">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+
+            <!-- Quiz Header -->
+            <div class="bg-brand-offwhite px-6 py-6 border-b border-gray-100 relative overflow-hidden shrink-0">
+                <!-- Progress Bar Background -->
+                <div class="absolute bottom-0 left-0 w-full h-1 bg-gray-200">
+                    <div id="quiz-progress" class="h-full bg-brand-indigo transition-all duration-500 ease-out w-0"></div>
+                </div>
+                
+                <h3 class="font-serif text-2xl font-bold text-brand-indigo mb-1 flex items-center">
+                    Stop Guessing. Start Preparing. <span class="ml-2 text-xl">🎯</span>
+                </h3>
+                <p class="text-sm text-gray-500 font-medium">Answer a few questions to find your career blind spots.</p>
+            </div>
+
+            <!-- Quiz Content Area -->
+            <div class="p-6 sm:p-8 flex-grow overflow-y-auto no-scrollbar max-h-[65vh]">
+                
+                <!-- Welcome/Intro Screen -->
+                <div id="quiz-intro" class="text-center py-6 block animate-[fadeIn_0.5s_ease-in]">
+                    <div class="w-20 h-20 bg-indigo-50 rounded-full flex items-center justify-center text-4xl mx-auto mb-6">
+                        🧭
+                    </div>
+                    <h4 class="text-xl font-bold text-brand-charcoal mb-4">Let's find your personal roadmap.</h4>
+                    <p class="text-gray-500 text-sm mb-8 max-w-md mx-auto leading-relaxed">Most freshers fail because they follow generic advice. Let's diagnose what's actually holding you back right now.</p>
+                    <button onclick="startQuiz()" class="bg-brand-indigo text-white px-8 py-3.5 rounded-xl font-bold tracking-wide shadow-lg hover:shadow-xl hover:bg-brand-indigoLight transition-all duration-300 transform hover:-translate-y-1">
+                        Start the Quiz ⚡️
+                    </button>
+                </div>
+
+                <!-- Active Question Screen -->
+                <div id="quiz-question-container" class="hidden">
+                    <span id="q-counter" class="text-xs font-bold uppercase tracking-wider text-brand-bronze mb-3 block">Question 1 of 8</span>
+                    <h4 id="q-text" class="text-lg sm:text-xl font-bold text-brand-charcoal mb-6 leading-snug"></h4>
+                    
+                    <div id="q-options" class="space-y-3">
+                        <!-- Options will be injected here via JS -->
+                    </div>
+                </div>
+
+                <!-- Result Screen -->
+                <div id="quiz-result" class="hidden text-center py-4">
+                    <div id="result-icon" class="w-20 h-20 bg-brand-bronze/10 rounded-full flex items-center justify-center text-4xl mx-auto mb-5">
+                        <!-- Dynamic Emoji -->
+                    </div>
+                    <span id="result-label" class="inline-block px-3 py-1 rounded-full bg-brand-slateAccent text-brand-indigo text-[10px] font-bold uppercase tracking-widest mb-4">
+                        Your Diagnosis
+                    </span>
+                    <h4 id="result-title" class="font-serif text-2xl sm:text-3xl font-bold text-brand-indigo mb-4"></h4>
+                    <p id="result-message" class="text-gray-600 text-sm md:text-base leading-relaxed mb-8 max-w-lg mx-auto p-4 bg-brand-offwhite rounded-xl border border-brand-bronze/10"></p>
+                    
+                    <button onclick="goToEnroll()" class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 rounded-xl bg-brand-indigo text-white font-bold tracking-wide shadow-lg hover:bg-brand-indigoLight transition-all duration-300 transform hover:scale-105">
+                        Enroll in Career Launchpad 🚀
+                    </button>
+                    <button onclick="closeQuiz()" class="block w-full mt-4 text-xs text-gray-400 font-medium hover:text-gray-600">
+                        Maybe later
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Native JavaScript for Quiz Logic and Animations -->
+    <script>
+        // Data Structure for the Quiz
+        const quizData = {
+            q1: {
+                question: "How would you describe your current career vibe?",
+                options: [
+                    { text: "I’m in the zone—I have a clear path and I’m crushing it. 😎", type: "clear", next: "q2" },
+                    { text: "I have a goal, but it feels like I’m stuck on a treadmill. 🏃‍♂️", type: "strategy", next: "q3" },
+                    { text: "I’m completely lost—my parents, friends, and internet experts all suggest different things. 😵‍💫", type: "confusion", next: "q4" },
+                    { text: "Honestly? I’m just wasting time and I don't know where to start. ⏳", type: "confusion", next: "q5_hesitation" }
+                ]
+            },
+            q2: {
+                question: "You're making progress! What’s the biggest hurdle preventing your next level of success?",
+                options: [
+                    { text: "I need to optimize my resume for better ATS results.", type: "resume", next: "villain_q3" },
+                    { text: "I need help mastering high-level interview strategies.", type: "interview", next: "villain_q3" },
+                    { text: "I’m struggling to network or access the 'hidden' job market.", type: "strategy", next: "villain_q3" },
+                    { text: "I need to bridge the gap between my current skills and industry demands.", type: "direction", next: "villain_q3" }
+                ]
+            },
+            q3: {
+                question: "Sounds like you need an execution strategy. What’s keeping you on the 'treadmill'?",
+                options: [
+                    { text: "I lack a clear, step-by-step roadmap to achieve my specific goal.", type: "strategy", next: "villain_q3" },
+                    { text: "I’m held back by family or personal background challenges.", type: "confusion", next: "villain_q3" },
+                    { text: "I’m applying for jobs, but I’m not getting any responses.", type: "resume", next: "villain_q3" },
+                    { text: "I start with high energy but lose consistency halfway through.", type: "direction", next: "villain_q3" }
+                ]
+            },
+            q4: {
+                question: "Let’s cut through the noise. What is the primary source of your confusion?",
+                options: [
+                    { text: "I’m torn between conflicting career paths (IT vs. Government vs. Private).", type: "direction", next: "villain_q3" },
+                    { text: "Everyone around me (parents, friends) suggests something different.", type: "confusion", next: "villain_q3" },
+                    { text: "I don't know my own strengths or which career fits my personality.", type: "confusion", next: "villain_q3" },
+                    { text: "I’m afraid that if I choose one path, I’ll waste time if it’s the wrong one.", type: "confusion", next: "villain_q3" }
+                ]
+            },
+            q5_hesitation: {
+                question: "To help you start fresh, what is your biggest hesitation right now?",
+                options: [
+                    { text: "I feel like I’ve already 'wasted' too much time and it's too late.", type: "confusion", next: "villain_q3" },
+                    { text: "I’m terrified of interviews and my communication skills.", type: "interview", next: "villain_q3" },
+                    { text: "I’m overwhelmed by the amount of conflicting info online.", type: "confusion", next: "villain_q3" },
+                    { text: "I don't have a plan, and I'm just stressed and paralyzed.", type: "strategy", next: "villain_q3" }
+                ]
+            },
+            villain_q3: {
+                question: "What’s the biggest 'Villain' standing between you and a job right now?",
+                options: [
+                    { text: "The 'Interview Monster' (I freeze up when I have to speak).", type: "interview", next: "q4_interview" },
+                    { text: "The 'Resume Void' (I don't know how to build one that recruiters actually look at).", type: "resume", next: "q4_resume" },
+                    { text: "The 'Strategy Gap' (I have the degree, but no clue how to navigate the industry).", type: "strategy", next: "q4_strategy" },
+                    { text: "The 'Confusion Loop' (I’m trying everything but finishing nothing).", type: "confusion", next: "q4_confusion" }
+                ]
+            },
+            q4_interview: {
+                question: "Let’s tame the monster. What part of the interview process makes your mind go blank?",
+                options: [
+                    { text: "I don't know how to structure my answers to questions like 'Tell me about yourself'.", type: "interview", next: "q5_tellme" },
+                    { text: "I struggle with spoken English and fear making grammatical mistakes.", type: "interview", next: "q5_tellme" },
+                    { text: "I freeze when they ask about my career gaps or weaknesses.", type: "interview", next: "q5_tellme" },
+                    { text: "I lack the confidence to maintain eye contact or proper body language.", type: "interview", next: "q5_tellme" }
+                ]
+            },
+            q4_resume: {
+                question: "A winning resume is your first sales pitch. What is your biggest struggle when building it?",
+                options: [
+                    { text: "I don't know how to highlight my projects/skills to pass ATS screening.", type: "resume", next: "q5_tellme" },
+                    { text: "I have no professional experience, so I don't know what to put on the page.", type: "resume", next: "q5_tellme" },
+                    { text: "I'm overwhelmed by the 100+ conflicting templates and advice online.", type: "resume", next: "q5_tellme" },
+                    { text: "I don't know how to keep my resume consistent with my LinkedIn/Job Portals.", type: "resume", next: "q5_tellme" }
+                ]
+            },
+            q4_strategy: {
+                question: "To bridge the gap, we need to pick your lane. What does your ideal 'day-to-day' career look like?",
+                options: [
+                    { text: "IT/Tech: I want to build software, analyze data, or work with systems.", type: "direction", next: "q5_tellme" },
+                    { text: "Government/Public Sector: I value the stability and the impact of the public sector.", type: "direction", next: "q5_tellme" },
+                    { text: "Core/Engineering: I want to apply my technical degree to practical industry problems.", type: "direction", next: "q5_tellme" },
+                    { text: "I'm still testing: I need a framework to help me compare these paths before committing.", type: "strategy", next: "q5_tellme" }
+                ]
+            },
+            q4_confusion: {
+                question: "When you're stuck in a loop, it’s usually because of external noise. What is feeding your confusion right now?",
+                options: [
+                    { text: "My family/parents are pushing me toward a path that doesn't feel right for me.", type: "confusion", next: "q5_tellme" },
+                    { text: "I'm overwhelmed by conflicting advice from friends, the internet, and social media.", type: "confusion", next: "q5_tellme" },
+                    { text: "I start new courses or study plans, but I lose interest or consistency halfway through.", type: "confusion", next: "q5_tellme" },
+                    { text: "I'm afraid that if I pick one path, I'll be stuck and regret not trying the others.", type: "confusion", next: "q5_tellme" }
+                ]
+            },
+            q5_tellme: {
+                question: "When someone asks, 'Tell me about yourself,' what’s your internal reaction?",
+                options: [
+                    { text: "The 'Blank Slate': My mind goes completely blank, and I don't know where to start.", type: "interview", next: "q6_blank" },
+                    { text: "The 'Ramble': I start talking but I lose the thread and ramble without a clear point.", type: "interview", next: "q6_ramble" },
+                    { text: "The 'Fear Factor': I’m terrified I’ll say the wrong thing and get judged or rejected.", type: "interview", next: "q6_fear" },
+                    { text: "The 'Robot': I just recite my resume line-by-line, and it feels boring.", type: "interview", next: "q6_robot" }
+                ]
+            },
+            q6_blank: {
+                question: "Let’s build your foundation. Which part of your life story feels the most difficult to summarize?",
+                options: [
+                    { text: "I don't know how to balance my academic background with my personal interests.", type: "strategy", next: "q7" },
+                    { text: "I’m struggling to connect my past education to the job I’m applying for.", type: "resume", next: "q7" },
+                    { text: "I don’t know which of my skills are actually relevant to the employer.", type: "strategy", next: "q7" },
+                    { text: "I haven’t really thought about my 'story' until now.", type: "direction", next: "q7" }
+                ]
+            },
+            q6_ramble: {
+                question: "To keep your answer sharp and professional, which 'narrative' should we focus on building?",
+                options: [
+                    { text: "The 'Problem Solver': How I’ve tackled challenges in the past.", type: "interview", next: "q7" },
+                    { text: "The 'Growth' Story: How my skills have evolved to match this role.", type: "interview", next: "q7" },
+                    { text: "The 'Passion' Story: Why I am genuinely excited about this industry.", type: "direction", next: "q7" },
+                    { text: "I need help filtering out the unnecessary details that make me ramble.", type: "interview", next: "q7" }
+                ]
+            },
+            q6_fear: {
+                question: "Fear usually stems from the unknown. What specific 'judgment' are you most afraid of?",
+                options: [
+                    { text: "I'm afraid they will judge my education gaps or lack of experience.", type: "resume", next: "q7" },
+                    { text: "I'm worried about my ability to communicate in English under pressure.", type: "interview", next: "q7" },
+                    { text: "I fear that if I say the wrong thing, I'll lose the job immediately.", type: "interview", next: "q7" },
+                    { text: "I don't feel confident in my body language or eye contact.", type: "interview", next: "q7" }
+                ]
+            },
+            q6_robot: {
+                question: "You are more than a piece of paper. What is the one 'real-world' thing that makes you unique?",
+                options: [
+                    { text: "My unique approach to solving technical problems.", type: "strategy", next: "q7" },
+                    { text: "My ability to learn quickly and adapt to new environments.", type: "interview", next: "q7" },
+                    { text: "My soft skills and how I collaborate within a team.", type: "interview", next: "q7" },
+                    { text: "I haven't identified what makes me unique yet.", type: "direction", next: "q7" }
+                ]
+            },
+            q7: {
+                question: "How are you handling the pressure of career decisions?",
+                options: [
+                    { text: "I’m independent and clear about my choices.", type: "clear", next: "q8_independent" },
+                    { text: "It’s overwhelming—I feel guilty if I don't pick what my parents want.", type: "confusion", next: "q8_guilt" },
+                    { text: "I’m comparing myself to friends on LinkedIn and feeling left behind.", type: "strategy", next: "q8_comparison" },
+                    { text: "I’m burnt out from overthinking and just want someone to tell me exactly what to do.", type: "direction", next: "q8_burnout" }
+                ]
+            },
+            q8_independent: {
+                question: "Excellent. Since you have the direction, let’s focus on the execution. What is the single biggest barrier stopping you from starting your plan today?",
+                options: [
+                    { text: "I lack a step-by-step roadmap for my specific field.", type: "strategy", next: "result" },
+                    { text: "I'm unsure if I have the right skills/certifications to start.", type: "resume", next: "result" },
+                    { text: "I have the path, but I don't know how to navigate the industry/market.", type: "direction", next: "result" },
+                    { text: "I’m worried about potential 'gaps' or failures along the way.", type: "interview", next: "result" }
+                ]
+            },
+            q8_guilt: {
+                question: "Let’s find the middle ground. What is the main reason their preferred path feels like a mismatch for you?",
+                options: [
+                    { text: "It doesn't align with my interests or natural strengths.", type: "direction", next: "result" },
+                    { text: "I’m afraid I’ll struggle to complete the training/work required for that path.", type: "interview", next: "result" },
+                    { text: "I already have a clear passion elsewhere and feel like I’m wasting time on their choice.", type: "strategy", next: "result" },
+                    { text: "I just need a way to 'prove' to them that my chosen path is viable.", type: "resume", next: "result" }
+                ]
+            },
+            q8_comparison: {
+                question: "Comparison often stems from not having your own defined 'North Star.' What makes you feel the most 'behind' your peers right now?",
+                options: [
+                    { text: "They seem to have landed a job/internship while I’m still applying.", type: "resume", next: "result" },
+                    { text: "They have a clear social profile (LinkedIn/Naukri) and I’m starting from zero.", type: "strategy", next: "result" },
+                    { text: "They are earning money, and I feel like I'm still 'learning'.", type: "direction", next: "result" },
+                    { text: "I’m focused on a path that feels 'slower' than the high-tech/fast-paced roles they are in.", type: "confusion", next: "result" }
+                ]
+            },
+            q8_burnout: {
+                question: "Analysis paralysis is exhausting. To get you out of this loop, what is the one thing that would give you the most 'relief' right now?",
+                options: [
+                    { text: "A daily routine/study plan that I can follow without thinking.", type: "strategy", next: "result" },
+                    { text: "Knowing exactly which industry/role suits my personality.", type: "direction", next: "result" },
+                    { text: "A guide to tell me what is actually required (resume vs. skills vs. networking).", type: "resume", next: "result" },
+                    { text: "Someone to just hold me accountable to actually finishing the work.", type: "interview", next: "result" }
+                ]
+            }
+        };
+
+        // State Variables
+        let currentQuestionId = "q1";
+        let questionStep = 1;
+        let totalSteps = 8;
+        let scores = {
+            clear: 0,
+            strategy: 0,
+            confusion: 0,
+            resume: 0,
+            interview: 0,
+            direction: 0
+        };
+        
+        // DOM Elements
+        const modal = document.getElementById('quiz-modal');
+        const modalInner = document.getElementById('quiz-card');
+        const widget = document.getElementById('quiz-widget');
+        const introView = document.getElementById('quiz-intro');
+        const questionView = document.getElementById('quiz-question-container');
+        const resultView = document.getElementById('quiz-result');
+        const progressBar = document.getElementById('quiz-progress');
+
+        // Auto-trigger widget after 1.5s
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                widget.classList.remove('translate-y-24', 'opacity-0');
+            }, 1500);
+        });
+
+        function openQuiz() {
+            modal.classList.remove('invisible', 'opacity-0');
+            setTimeout(() => {
+                modalInner.classList.remove('scale-95', 'opacity-0');
+            }, 50);
+            widget.classList.add('translate-y-24', 'opacity-0');
+        }
+
+        function closeQuiz() {
+            modalInner.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.add('invisible', 'opacity-0');
+                if(currentQuestionId !== "result") {
+                    widget.classList.remove('translate-y-24', 'opacity-0');
+                }
+            }, 400);
+        }
+
+        function startQuiz() {
+            introView.classList.add('hidden');
+            questionView.classList.remove('hidden');
+            currentQuestionId = "q1";
+            questionStep = 1;
+            for(let key in scores) scores[key] = 0;
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const progressPercentage = ((questionStep - 1) / totalSteps) * 100;
+            progressBar.style.width = `${progressPercentage}%`;
+
+            if (currentQuestionId === "result") {
+                showResults();
+                return;
+            }
+
+            const q = quizData[currentQuestionId];
+            document.getElementById('q-counter').innerText = `Question ${questionStep} of ${totalSteps}`;
+            document.getElementById('q-text').innerText = q.question;
+            
+            const optionsContainer = document.getElementById('q-options');
+            optionsContainer.innerHTML = '';
+
+            q.options.forEach((opt, index) => {
+                const btn = document.createElement('button');
+                btn.className = "w-full text-left p-4 rounded-xl border-2 border-gray-100 bg-white text-brand-charcoal text-sm sm:text-base font-medium transition-all duration-200 quiz-option-hover relative flex items-center";
+                btn.innerHTML = `<span class="w-6 h-6 rounded-full bg-gray-100 text-gray-500 flex items-center justify-center text-xs font-bold mr-3 shrink-0">${String.fromCharCode(65 + index)}</span> <span>${opt.text}</span>`;
+                
+                btn.onclick = () => selectOption(opt.type, opt.next, btn);
+                optionsContainer.appendChild(btn);
+            });
+
+            optionsContainer.style.opacity = 0;
+            setTimeout(() => { optionsContainer.style.transition = 'opacity 0.3s'; optionsContainer.style.opacity = 1; }, 50);
+        }
+
+        function selectOption(type, nextQuestionId, btnElement) {
+            const allBtns = document.getElementById('q-options').children;
+            for(let b of allBtns) {
+                b.classList.remove('quiz-option-selected');
+                b.classList.add('opacity-50'); 
+            }
+            btnElement.classList.add('quiz-option-selected');
+            btnElement.classList.remove('opacity-50');
+
+            if(scores[type] !== undefined) {
+                scores[type]++;
+            }
+
+            setTimeout(() => {
+                currentQuestionId = nextQuestionId;
+                if(nextQuestionId !== "result") {
+                    questionStep++;
+                }
+                renderQuestion();
+            }, 400);
+        }
+
+        function showResults() {
+            questionView.classList.add('hidden');
+            resultView.classList.remove('hidden');
+            progressBar.style.width = '100%';
+
+            let maxScore = 0;
+            let dominantTrait = 'confusion';
+            
+            const painPoints = ['confusion', 'resume', 'interview', 'direction', 'strategy'];
+            painPoints.forEach(trait => {
+                if(scores[trait] > maxScore) {
+                    maxScore = scores[trait];
+                    dominantTrait = trait;
+                }
+            });
+
+            const resultData = getResultContent(dominantTrait);
+            
+            document.getElementById('result-icon').innerText = resultData.emoji;
+            document.getElementById('result-title').innerText = resultData.title;
+            document.getElementById('result-message').innerText = resultData.message;
+        }
+
+        function getResultContent(trait) {
+            const results = {
+                'confusion': {
+                    emoji: '🧭',
+                    title: "Analysis Paralysis",
+                    message: "You’re overwhelmed with choices. You don't need more generic advice or options; you need absolute clarity. Join Module 1 & 2 of the Career Launchpad to build your unbreakable compass."
+                },
+                'resume': {
+                    emoji: '📄',
+                    title: "The Presentation Gap",
+                    message: "Your skills might be great, but your digital presentation is holding you back. We specialize in turning your background into an ATS-friendly, winning resume. Check out Module 7."
+                },
+                'interview': {
+                    emoji: '🎙️',
+                    title: "The Confidence Block",
+                    message: "Confidence is a skill, not a trait. Stop dreading the interview room and start owning it. Join Module 8 & 9 to master professional communication and high-impact speaking."
+                },
+                'direction': {
+                    emoji: '🎯',
+                    title: "The Specific Roadmap",
+                    message: "You know what sector you want, but lack the inside track. Stop 'spray-and-praying' your applications. Get the highly specific roadmap for your dream path in Module 4 or 5."
+                },
+                'strategy': {
+                    emoji: '♟️',
+                    title: "The Strategy Gap",
+                    message: "You have the ambition, but lack the tactical execution. You need a structured timeline to leverage your degree. The Complete Career Blueprint is specifically tailored for this leap."
+                }
+            };
+            return results[trait] || results['confusion'];
+        }
+
+        function goToEnroll() {
+            closeQuiz();
+            document.getElementById('enroll').scrollIntoView({ behavior: 'smooth' });
+            setTimeout(() => {
+                const formArea = document.querySelector('#enroll iframe').parentElement;
+                formArea.classList.add('ring-4', 'ring-brand-indigo', 'ring-opacity-50', 'transition-all', 'duration-500');
+                setTimeout(() => { formArea.classList.remove('ring-4', 'ring-brand-indigo', 'ring-opacity-50'); }, 1500);
+            }, 800);
+        }
+
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+
+        function toggleMenu() {
+            mobileMenu.classList.toggle('hidden');
+            if (mobileMenu.classList.contains('hidden')) {
+                menuIcon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>`;
+            } else {
+                menuIcon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>`;
+            }
+        }
+        menuBtn.addEventListener('click', toggleMenu);
+
+        const header = document.getElementById('main-header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('shadow-lg', 'bg-brand-offwhite/100', 'border-b', 'border-brand-bronze/20');
+                header.classList.remove('bg-brand-offwhite/95');
+            } else {
+                header.classList.remove('shadow-lg', 'border-b', 'border-brand-bronze/20');
+                header.classList.add('bg-brand-offwhite/95');
+            }
+        });
+    </script>
+</body>
+</html>
